@@ -1,0 +1,75 @@
+<div class="form-group">
+  <div class="col-sm-10">
+    <form [formGroup]='userForm' (ngSubmit)="submit(userForm.value)">
+      <div class="form-group">
+        <input type="text" name="name" class="form-control" formControlName="name">
+        <div *ngIf="userForm.controls['name'].errors && (userForm.controls['name'].dirty || userForm.controls['name'].touched)" class="alert alert-danger">
+          <div *ngIf="userForm.controls['name'].hasError('required')">
+            Last name is required.
+          </div>
+          <div *ngIf="userForm.controls['name'].hasError('pattern')">
+            Please enter alphabets.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" name="lastName" class="form-control" formControlName="lastName">
+        <div *ngIf="userForm.controls['lastName'].errors && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['lastName'].hasError('required')">
+            Last Name is required.
+          </div>
+          <div *ngIf="userForm.controls['lastName'].hasError('pattern')">
+            Please enter alphabets.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" name="age" class="form-control" formControlName="age">
+        <div *ngIf="userForm.controls['age'].errors && (userForm.controls['age'].dirty || userForm.controls['age'].touched)" class="alert alert-danger">
+          <div *ngIf="userForm.controls['age'].hasError('required')">
+            Age is required.
+          </div>
+          <div *ngIf="!userForm.controls['age'].hasError('checkIfNumber')">
+            Age should be less than 3 digits and it should be numeric.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        {{userForm.controls['genderType'].value}}
+        <select class="txt-box" formControlName="genderType" class="form-control">
+          <option [value]='genderType' [disabled]="true">Select Option </option>
+            <option *ngFor="let gender of genderArray" [ngValue]="gender.value">
+            {{gender.value}}
+            </option>
+      </select>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit</button>
+      <button type="button" class="btn btn-primary" (click)="resetForm()">Reset</button>
+    </form>
+
+    <hr/>
+    <div *ngIf="arrayList.length > 0">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>LastName</th>
+              <th>Age</th>
+              <th>Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of arrayList">
+              <td>{{item.name}}</td>
+              <td>{{item.lastName}}</td>
+              <td>{{item.age}}</td>
+              <td>{{item.gender}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
